@@ -6,13 +6,14 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
  import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -25,8 +26,9 @@ public class OrderEntity extends BaseEntity {
     public UUID roomId;
 
     private Double price;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDate startDay;
+    private LocalDate endDay;
+    private BookingStatus bookingStatus;
 
 
 

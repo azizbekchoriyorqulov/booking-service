@@ -1,10 +1,12 @@
+
 spring:
+
   application:
     name: BOOKING-SERVICE
   datasource:
     username: postgres
-    password: azizbek2003
-    url: jdbc:postgresql://db-azizbek-aws.cj9xb1mfxuhe.ap-northeast-1.rds.amazonaws.com
+    password: 1111
+    url: jdbc:postgresql://localhost:5432/new
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,15 +19,11 @@ spring:
 host: ${HOST:http://localhost}
 services:
  room-url: ${ROOM_URL:http://room-service/room/api/v1/}
-
-
-
-
-
 eureka:
   client:
     service-url:
       defaultUrl: ${EUREKA_URI:http://localhost:8761/eureka/}
     instance:
       preferIpAddress: true
-
+server:
+  port: 8084

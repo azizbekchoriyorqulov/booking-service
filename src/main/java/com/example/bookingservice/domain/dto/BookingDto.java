@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -14,8 +15,14 @@ import java.util.UUID;
 @Setter
 public class BookingDto {
     public UUID roomId;
+
     public UUID userId;
-    public LocalDateTime startTime;
-    public LocalDateTime endTime;
+
+    public LocalDate startDay;
+
+    public LocalDate endDay;
+
+
     public Double price;
+
 }
