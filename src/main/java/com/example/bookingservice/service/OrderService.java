@@ -10,12 +10,13 @@ import com.example.bookingservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.awt.print.Pageable;
+
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,16 +33,16 @@ public class OrderService {
     @Value("${services.room-url}")
     public String roomUrl ;
 
-public List<OrderEntity>UserBookingsHistory(Pageable pageable,UUID userId){
+public List<OrderEntity>UserBookingsHistory(Pageable pageable, UUID userId){
 
-    List<OrderEntity>bookings = orderRepository.findAllByUserId(userId,pageable).orElseThrow(()-> new DataNotFoundException("user not found"));
-return bookings;
+    //    .orElseThrow(()-> new DataNotFoundException("user not found"));
+return orderRepository.findAllByUserId(userId,pageable).getContent();
 
 }
 
 public List<LocalDate> DaysOff(UUID roomId){
     BookingStatus booked = BookingStatus.BOOKED;
-    List<OrderEntity> orderEntities = orderRepository.findOrderEntitiesByBookingStatusAndRoomId(roomId,booked).orElseThrow( ()->new DataNotFoundException("booking not found"));
+    List<OrderEntity> orderEntities = orderRepository.findOrderEntitiesByBookingStatusAndRoomId(booked, roomId).orElseThrow( ()->new DataNotFoundException("booking not found"));
     LocalDate  today = LocalDate.now();
     List<LocalDate> thirtyDays = new ArrayList<>();
     for (int i = 0; i < 30; i++) {
