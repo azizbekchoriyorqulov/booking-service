@@ -3,23 +3,18 @@ package com.example.bookingservice.service;
 import com.example.bookingservice.domain.dto.BookingDto;
 import com.example.bookingservice.domain.entity.BookingStatus;
 import com.example.bookingservice.domain.entity.OrderEntity;
-import com.example.bookingservice.exeption.BookedException;
 import com.example.bookingservice.exeption.DataNotFoundException;
+import com.example.bookingservice.exeption.NoPermissionException;
 import com.example.bookingservice.exeption.OrdersException;
 import com.example.bookingservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 
-import java.net.URI;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -96,4 +91,16 @@ public List<LocalDate> DaysOff(UUID roomId){
   }
   throw new OrdersException("Try again in the room you have already booked or choose another room");
  }
+ public String deleteOrder(UUID orderId, UUID userId){
+     OrderEntity byId = orderRepository.findById(orderId).orElseThrow(
+             ()->new DataNotFoundException("ordernot found"));
+     if (byId.getUserId() == userId){
+         new NoPermissionException("you are not allowed...");
+         return null;
+     }
+     else orderRepository.delete(byId);
+     return "order delete";
+ }
+
+
 }
