@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,10 +27,11 @@ public ResponseEntity<OrderEntity> addOrder(
 }
 @PostMapping("/daysOff")
     public ResponseEntity<List<LocalDate>> openDays(
-        @PathVariable UUID roomId
+        @RequestParam UUID roomId
         ){
     List<LocalDate> localDates = orderService.DaysOff(roomId);
-    return ResponseEntity.ok(localDates);
+
+    return ResponseEntity.status(200).body(localDates);
 }
 @DeleteMapping ("/deleteBooking")
     public String delete(

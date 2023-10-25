@@ -6,7 +6,8 @@ spring:
   datasource:
     username: postgres
     password: 1111
-    url: jdbc:postgresql://localhost:5432/new
+    url: jdbc:postgresql://localhost:5432/hotel_service_db
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,4 +27,4 @@ eureka:
     instance:
       preferIpAddress: true
 server:
-  port: 8084
+  port: 8086

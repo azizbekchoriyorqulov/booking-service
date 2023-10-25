@@ -18,8 +18,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, UUID> {
 
     Page<OrderEntity> findAllByUserId(UUID userId, Pageable pageable);
 //    Optional<List<OrderEntity>>findAllByRoomId(UUID roomId, Pageable pageable);
-    @Query(value = "select o from OrderEntity o where o.bookingStatus = :bookingStatus and o.roomId = :roomId")
-    Optional<List<OrderEntity>>findOrderEntitiesByBookingStatusAndRoomId(
-            @Param(value = "bookingStatus") BookingStatus bookingStatus, @Param(value = "roomId") UUID roomId);
+    @Query(value = "select o from OrderEntity o where o.bookingStatus = 'BOOKED' OR o.roomId = :roomId")
+    Optional<List<OrderEntity>>findOrderEntitiesByBookingStatusAndRoomId( @Param(value = "roomId") UUID roomId);
 }
 
